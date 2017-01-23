@@ -1,0 +1,21 @@
+db:
+    host: pinba
+    name: pinba
+    user: root
+    pass: 
+base_url: /
+logging:
+    long_request_time:
+        global: !!float 1
+    heavy_request:
+        global: 30000
+    heavy_cpu_request:
+        global: 1
+locale: en
+cache: apc
+records_lifetime: P1M
+aggregation_period: PT15M
+pagination:
+    row_per_page: 50
+secure:
+enable: false

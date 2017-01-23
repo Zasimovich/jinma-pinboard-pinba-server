@@ -7,3 +7,15 @@ services:
         ports:
              - "30002:30002/udp"
              - "3306:3306"
+    pinboard:
+        image: lebnik/pinboard
+        restart: always
+        depends_on:
+            - pinba
+        links:
+            - pinba
+        volumes:
+            - ./config/pinboard/parameters.yml:/var/www/pinboard/config/parameters.yml
+            - ./config/pinboard/php.ini:/etc/php5/fpm/conf.d/99-custom.ini:ro
+            - ./config/pinboard/fpm-pool.conf:/etc/php5/fpm/pool.d/www.conf:ro
+        working_dir: /var/www/pinboard
