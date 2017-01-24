@@ -2,11 +2,26 @@ version: '2'
 
 services:
     pinba:
-        image: vendelev/pinba:latest
+        image: choobs/mariadb:pinba
+        # image: vendelev/pinba:latest
+        # image: tony2001/pinba
         restart: always
+        environment:
+            - MYSQL_ROOT_PASSWORD=123
         ports:
              - "30002:30002/udp"
              - "3306:3306"
+    jinba:
+        image: node:latest
+        restart: always
+        depends_on:
+            - pinba
+        links:
+            - pinba
+        volumes:
+            - ./src:/var/www:rw
+        working_dir: /var/www/jinba
+        command: ["/bin/sh", "-c", "npm install && node index.js"]
     pinboard:
         image: lebnik/pinboard
         restart: always

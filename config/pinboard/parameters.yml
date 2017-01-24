@@ -2,8 +2,8 @@ db:
     host: pinba
     name: pinba
     user: root
-    pass: 
-base_url: /
+    pass: 123
+base_url: /pinboard/
 logging:
     long_request_time:
         global: !!float 1

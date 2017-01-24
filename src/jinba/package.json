@@ -1,0 +1,11 @@
+{
+  "name": "docker-jinba-server",
+  "author": "Artiom Vendelev <avendelev@inform-tb.ru>",
+  "license": "MIT",
+  "description": "Docker Jinba Server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "dependencies": {
+    "jinba-server": "*"
+  }
+}
