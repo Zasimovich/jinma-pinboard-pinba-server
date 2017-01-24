@@ -34,3 +34,17 @@ services:
             - ./config/pinboard/php.ini:/etc/php5/fpm/conf.d/99-custom.ini:ro
             - ./config/pinboard/fpm-pool.conf:/etc/php5/fpm/pool.d/www.conf:ro
         working_dir: /var/www/pinboard
+    proxy:
+        image: nginx:latest
+        restart: always
+        ports:
+            - "80:80"
+        depends_on:
+            - jinba
+            - pinboard
+        links:
+            - jinba
+            - pinboard
+        volumes:
+            - ./:/var/www:rw
+            - ./config/nginx/sites.conf:/etc/nginx/conf.d/sites.conf
