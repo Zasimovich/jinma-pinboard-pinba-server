@@ -36,6 +36,16 @@ services:
             - ./config/pinboard/nginx.conf:/etc/nginx/sites-enabled/pinboard.conf
             - ./logs:/var/www/logs:rw
         working_dir: /var/www/pinboard
+    php:
+        image: local/php-pinba
+        restart: always
+        depends_on:
+            - pinba
+        links:
+            - pinba
+        volumes:
+            - ./src/php:/var/www/web:rw
+        working_dir: /var/www/web
     proxy:
         image: nginx:latest
         restart: always
@@ -44,9 +54,11 @@ services:
         depends_on:
             - jinba
             - pinboard
+            - php
         links:
             - jinba
             - pinboard
+            - php
         volumes:
             - ./config/nginx/sites.conf:/etc/nginx/conf.d/sites.conf
             - ./logs:/var/www/logs
