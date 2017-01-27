@@ -19,7 +19,7 @@ services:
         links:
             - pinba
         volumes:
-            - ./src:/var/www:rw
+            - ./src/jinba:/var/www/jinba:rw
         working_dir: /var/www/jinba
         command: ["/bin/sh", "-c", "npm install && node index.js"]
     pinboard:
@@ -34,7 +34,7 @@ services:
             - ./config/pinboard/php.ini:/etc/php5/fpm/conf.d/99-custom.ini:ro
             - ./config/pinboard/fpm-pool.conf:/etc/php5/fpm/pool.d/www.conf:ro
             - ./config/pinboard/nginx.conf:/etc/nginx/sites-enabled/pinboard.conf
-            - ./logs:/var/nginx_logs:rw
+            - ./logs:/var/www/logs:rw
         working_dir: /var/www/pinboard
     proxy:
         image: nginx:latest
@@ -48,5 +48,5 @@ services:
             - jinba
             - pinboard
         volumes:
-            - ./:/var/www:rw
             - ./config/nginx/sites.conf:/etc/nginx/conf.d/sites.conf
+            - ./logs:/var/www/logs
