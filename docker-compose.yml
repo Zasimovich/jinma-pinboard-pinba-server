@@ -23,7 +23,7 @@ services:
         working_dir: /var/www/jinba
         command: ["/bin/sh", "-c", "npm install && node index.js"]
     pinboard:
-        image: lebnik/pinboard
+        image: vendelev/pinboard
         restart: always
         depends_on:
             - pinba
