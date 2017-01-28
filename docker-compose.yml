@@ -31,9 +31,6 @@ services:
             - pinba
         volumes:
             - ./config/pinboard/parameters.yml:/var/www/pinboard/config/parameters.yml
-            - ./config/pinboard/php.ini:/etc/php5/fpm/conf.d/99-custom.ini:ro
-            - ./config/pinboard/fpm-pool.conf:/etc/php5/fpm/pool.d/www.conf:ro
-            - ./config/pinboard/nginx.conf:/etc/nginx/sites-enabled/pinboard.conf
             - ./logs:/var/www/logs:rw
         working_dir: /var/www/pinboard
     php:

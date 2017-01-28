@@ -3,7 +3,7 @@ db:
     name: pinba
     user: root
     pass: 123
-base_url: /pinboard/
+base_url: /
 logging:
     long_request_time:
         global: !!float 1
@@ -18,4 +18,4 @@ aggregation_period: PT15M
 pagination:
     row_per_page: 50
 secure:
-enable: false
+    enable: false
