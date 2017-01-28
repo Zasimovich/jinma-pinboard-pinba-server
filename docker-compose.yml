@@ -34,13 +34,15 @@ services:
             - ./logs:/var/www/logs:rw
         working_dir: /var/www/pinboard
     php:
-        image: local/php-pinba
+        image: axiles89/php-fpm
         restart: always
         depends_on:
             - pinba
         links:
             - pinba
         volumes:
+            - ./config/php/pinba.ini:/etc/php/7.0/fpm/conf.d/20-pinba.ini
+            - ./config/php/pinba.ini:/etc/php/7.0/cli/conf.d/20-pinba.ini
             - ./src/php:/var/www/web:rw
         working_dir: /var/www/web
     proxy:
