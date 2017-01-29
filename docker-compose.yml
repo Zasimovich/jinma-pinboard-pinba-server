@@ -1,16 +1,18 @@
 version: '2'
 
 services:
-    pinba:
-        image: choobs/mariadb:pinba
-        # image: vendelev/pinba:latest
-        # image: tony2001/pinba
+    mariadb10:
+        image: choobs/mariadb:latest
         restart: always
         environment:
             - MYSQL_ROOT_PASSWORD=123
         ports:
-             - "30002:30002/udp"
              - "3306:3306"
+    pinba:
+        image: choobs/mariadb:pinba
+        restart: always
+        environment:
+            - MYSQL_ROOT_PASSWORD=123
     jinba:
         image: node:latest
         restart: always
@@ -23,7 +25,7 @@ services:
         working_dir: /var/www/jinba
         command: ["/bin/sh", "-c", "npm install && node index.js"]
     pinboard:
-        image: vendelev/pinboard
+        image: vendelev/pinboard:latest
         restart: always
         depends_on:
             - pinba
@@ -33,13 +35,17 @@ services:
             - ./config/pinboard/parameters.yml:/var/www/pinboard/config/parameters.yml
             - ./logs:/var/www/logs:rw
         working_dir: /var/www/pinboard
-    php:
-        image: axiles89/php-fpm
+    php7:
+        image: axiles89/php-fpm:latest
         restart: always
+        environment:
+            - TERM=xterm
         depends_on:
             - pinba
+            - mariadb10
         links:
             - pinba
+            - mariadb10
         volumes:
             - ./config/php/pinba.ini:/etc/php/7.0/fpm/conf.d/20-pinba.ini
             - ./config/php/pinba.ini:/etc/php/7.0/cli/conf.d/20-pinba.ini
@@ -53,11 +59,11 @@ services:
         depends_on:
             - jinba
             - pinboard
-            - php
+            - php7
         links:
             - jinba
             - pinboard
-            - php
+            - php7
         volumes:
             - ./config/nginx/sites.conf:/etc/nginx/conf.d/sites.conf
             - ./logs:/var/www/logs
