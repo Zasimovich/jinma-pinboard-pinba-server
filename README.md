@@ -2,9 +2,7 @@
 
 This stack contains: Pinba image, Jinba image and Pinboard image.
 
-# Requirements
-
-## Setup
+# Setup
 
 1. Install [Docker](http://docker.io).
 2. Install [Docker-compose](http://docs.docker.com/compose/install/).
