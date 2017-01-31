@@ -1,15 +1,6 @@
 version: '2'
 
 services:
-    mariadb10:
-        image: choobs/mariadb:latest
-        restart: always
-        environment:
-            - MYSQL_ROOT_PASSWORD=123
-        ports:
-             - "3306:3306"
-        volumes:
-            - ./data/mariadb10:/var/lib/mysql
     pinba:
         image: choobs/mariadb:pinba
         restart: always
@@ -41,20 +32,6 @@ services:
             - ./config/pinboard/parameters.yml:/var/www/pinboard/config/parameters.yml
             - ./logs:/var/www/logs:rw
         working_dir: /var/www/pinboard
-    php7:
-        image: vendelev/php7-pinba
-        restart: always
-        depends_on:
-            - pinba
-            - mariadb10
-        links:
-            - pinba
-            - mariadb10
-        volumes:
-            - ./config/php/pinba.ini:/etc/php/7.0/fpm/conf.d/20-pinba.ini
-            - ./config/php/pinba.ini:/etc/php/7.0/cli/conf.d/20-pinba.ini
-            - ./src/php:/var/www/web:rw
-        working_dir: /var/www/web
     proxy:
         image: nginx:latest
         restart: always
