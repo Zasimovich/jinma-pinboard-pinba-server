@@ -8,11 +8,17 @@ services:
             - MYSQL_ROOT_PASSWORD=123
         ports:
              - "3306:3306"
+        volumes:
+            - ./data/mariadb10:/var/lib/mysql
     pinba:
         image: choobs/mariadb:pinba
         restart: always
         environment:
             - MYSQL_ROOT_PASSWORD=123
+        ports:
+             - "3307:3306"
+        volumes:
+            - ./data/pinba:/var/lib/mysql
     jinba:
         image: node:latest
         restart: always
@@ -36,10 +42,8 @@ services:
             - ./logs:/var/www/logs:rw
         working_dir: /var/www/pinboard
     php7:
-        image: axiles89/php-fpm:latest
+        image: vendelev/php7-pinba
         restart: always
-        environment:
-            - TERM=xterm
         depends_on:
             - pinba
             - mariadb10
