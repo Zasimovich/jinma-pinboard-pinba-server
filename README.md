@@ -22,3 +22,8 @@ For access to Pinba-server use 30002 port in you php-extansion
 
 Now you can open http://monitor.local/pinboard/
 Jinba request you can send to http://monitor.local/jinba/
+
+By default, the stack exposes the following ports:
+- 30002: Pinba Server
+- 3307: Pinba MySQL
+- 80: Nginx
