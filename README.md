@@ -7,7 +7,8 @@ This stack contains: Pinba image, Jinba image and Pinboard image.
 1. Install [Docker](http://docker.io).
 2. Install [Docker-compose](http://docs.docker.com/compose/install/).
 3. Clone this repository.
-4. Add to your "hosts" file "127.0.0.1 monitor.local"
+4. Correct MYSQL_ROOT_PASSWORD in the files: "docker-compose.yml" and "config/pinboard/parameters.yml"
+5. Add to your "hosts" file "127.0.0.1 monitor.local"
 
 # Usage
 
