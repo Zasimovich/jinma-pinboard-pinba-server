@@ -40,11 +40,9 @@ services:
         depends_on:
             - jinba
             - pinboard
-            - php7
         links:
             - jinba
             - pinboard
-            - php7
         volumes:
             - ./config/nginx/sites.conf:/etc/nginx/conf.d/sites.conf
             - ./logs:/var/www/logs
