@@ -18,7 +18,7 @@ Start the JPB stack using *docker-compose*:
 $ docker-compose up -d
 ```
 
-For access to Pinba-server use 30002 port in you php-extansion
+For access to Pinba-server use 30002 port in you php-extension
 
 Now you can open http://monitor.local/pinboard/
 Jinba request you can send to http://monitor.local/jinba/
