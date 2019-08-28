@@ -28,20 +28,18 @@ By default, the stack exposes the following ports:
 - 3307: Pinba MySQL
 - 80: Nginx
 
-Security
-Michail edited this page on 18 Jun 2013 · 4 revisions
+Pinboard allows to enable or disable authentication for users. If authentication turned off users can visit any pages in Pinboard. If authentication turned on users must pass authentication by entering username and password throw [HTTP Basic authentication](http://en.wikipedia.org/wiki/Basic_access_authentication). 
 
-Pinboard allows to enable or disable authentication for users. If authentication turned off users can visit any pages in Pinboard. If authentication turned on users must pass authentication by entering username and password throw HTTP Basic authentication.
+Section `secure` in file `config/parameters.yml` contains parameters of authentication and authorization. For details see section Security in [Configuration](Configuration).
 
-Section secure in file config/parameters.yml contains parameters of authentication and authorization. For details see section Security in Configuration.
-Adding new user
+## Adding new user
 
-There is command which helps you to configure user access. It adds settings to users section.
+There is command which helps you to configure user access. It adds settings to `users` section. 
 
-./console add-user username password [hosts]
+    ./console add-user username password [hosts]
 
-username - username of user
+`username` - username of user
 
-In password need to define user password, the encrypted algorithm is sha512 with 5000 iterations and encode to base64 the password hash.
+In `password` need to define user password, the encrypted algorithm is sha512 with 5000 iterations and encode to base64 the password hash.
 
-[hosts] - optional parameter. You can specify any valid regular expression which will controll access to hosts information. If you need to use the \ in expression, it must be escaped, for example: .*back\\slash
+`[hosts]` - optional parameter. You can specify any valid regular expression which will controll access to hosts information. If you need to use the `\` in expression, it must be escaped, for example: `.*back\\slash`
