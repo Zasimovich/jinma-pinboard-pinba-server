@@ -70,3 +70,59 @@ There is command which helps you to configure user access. It adds settings to `
 In `password` need to define user password, the encrypted algorithm is sha512 with 5000 iterations and encode to base64 the password hash.
 
 `[hosts]` - optional parameter. You can specify any valid regular expression which will controll access to hosts information. If you need to use the `\` in expression, it must be escaped, for example: `.*back\\slash`
+
+## Email notifications
+
+Pinboard can send e-mail messages for:
+* pages with HTTP status code 5xx
+* detection of a drawdown of indicators
+```yml
+notification:
+    enable: true
+    ignore:
+        - (foo|otp)\.example\.com$
+        - second-example\.ru$
+    sender: noreply@example.com
+    global_email: my_email@example.com
+    border:
+        req_time:
+            global: 1.5
+            somesite.com: 2
+    list:
+        -
+            hosts: example\.com$
+            email:
+                - admin@example.com
+                - elseemail@example.com
+        -
+            hosts: forum\.example\.com$
+            email: moderator@example.com
+```
+
+If section `notification` is not specified, notification will not be sent.
+
+Parameter `enable` switch on and off notification sending.
+
+In section `ignore` you can specify a list of sites which are ignored when sending a notifications. If a site matches any specified regular expression, notification will not be sent.
+
+Parameter `sender` - this email address will be used as the sender of notifications.
+
+Parameter `global_email` defines email for all messages. If the parameter is not specified, will use only emails listed below.
+
+In section `list` you can list the correspondence between the sites and email. If the error occurs at a site that equal to regexp expression `hosts`, notification will be sent to `email`. You can define multiple emails for one site.
+
+Parameter `border` defines settings for detecting of the drawdown of indicators. Now Intaro Pinboard monitors 2 indicators: max time of the 90% and 95% fastest requests. Settings for this indicators defines in section `req_time`. Subsection `global` defines the general border value for all sites. For any site you can define personal settings by adding corresponding parameter. If one of indicator exceeds border value Intaro Pinboard will send notification message. If indicator back to stable state Intaro Pinboard will send second notification message.
+
+## Sending transport
+
+By default all email sended throw `mail()` function. You can define sending throw SMTP server.
+
+    smtp:
+        server: localhost
+        port: 25
+        username: username@example.com
+        password: my_password
+        encryption: null
+        auth_mode: null
+
+In section `smtp` you can define parameters of your smtp server - server adress, port, username, password, encryption type (null, ssl, tls), authentication mode.
