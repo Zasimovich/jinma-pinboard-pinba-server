@@ -32,6 +32,31 @@ By default, the stack exposes the following ports:
 
 Pinboard allows to enable or disable authentication for users. If authentication turned off users can visit any pages in Pinboard. If authentication turned on users must pass authentication by entering username and password throw [HTTP Basic authentication](http://en.wikipedia.org/wiki/Basic_access_authentication). 
 
+
+## Security
+
+In section "Security" you can define settings for user authentication and authorization.
+
+    secure:
+        enable: true
+        users:
+            username1:
+                password: my_sha512_password
+            username2:
+                password: my_sha512_password
+                hosts: 'mysite\.com$'
+
+Parameter `enable` switch on/off the authentication and the authorization on site.
+
+In section `users` define who has the access to the site.
+
+In `password` need to define user password, the encrypted algorithm is sha512 with 5000 iterations and encode to base64 the password hash.
+
+In `hosts` define a regular expression which controls the access to hosts information. By default, the user has the access to all hosts.
+
+Use special console command for user adding. Details in [Security](Security).
+
+
 Section `secure` in file `config/parameters.yml` contains parameters of authentication and authorization. For details see section Security in [Configuration](Configuration).
 
 ## Adding new user
