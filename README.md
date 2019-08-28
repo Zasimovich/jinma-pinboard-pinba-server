@@ -32,6 +32,77 @@ By default, the stack exposes the following ports:
 
 Pinboard allows to enable or disable authentication for users. If authentication turned off users can visit any pages in Pinboard. If authentication turned on users must pass authentication by entering username and password throw [HTTP Basic authentication](http://en.wikipedia.org/wiki/Basic_access_authentication). 
 
+# PINBOARD CONFIGURING
+
+All settings are in `config/parameters.yml`.
+
+## Database settings
+
+    db:
+        host: localhost
+        port: 3306
+        name: pinba
+        user: user
+        pass: password
+
+In section `db` you must define database connection settings. Pinboard connects to the same database as Pinba.
+
+## URL settings
+
+    base_url: /
+    # or base_url: /pinboard/
+    # or base_url: http://your-pinboard-host.com/pinboard
+
+Define base URL for the static files (css, images, js).
+
+## Logging
+
+Pinboard can keep a log of slow and heavy (for memory and CPU) requests which displays in sections "Request time", "Memory peak usage" and "CPU peak usage" for each monitoring site.
+
+    logging:
+        # in seconds
+        long_request_time:
+            global: 1.0
+            "supersite1.com": 0.8
+            "superfastsite2.com": 0.3
+        # max memory usage in kB
+        heavy_request:
+            global: 30000
+            "coolsite.ru": 5000
+            "heavysite.ru": 30000
+        heavy_cpu_request:
+            global: 1
+            "elseonesite.com": 5
+
+Parameters `global` are used as default for all monitoring sites. For example above all requests with execution time more than 1 second, which used memory more than 30000 kB and which used CPU more than 1 will saved in log.
+
+For any site you can define personal settings by adding corresponding parameters in sections `long_request_time`, `heavy_request` and `heavy_cpu_request`.
+
+If no settings in section `logging` Pinboard uses following parameters:
+
+    long_request_time: 1.0
+    heavy_request: 30000
+    heavy_cpu_request: 1
+
+## Pagination
+
+    pagination:
+        row_per_page: 50
+
+In section `pagination` you can define number of records per page in sections "Request time", "Memory peak usage" and "Error statuses". 
+
+If no settings in section `pagination` Pinboard uses following parameter:
+    
+    row_per_page: 50
+
+## Data cleaning
+
+    records_lifetime: P1M
+
+You can define how long Pinboard will save hosts statistic. Default period is a one month. Period defines in ISO8601 format (see [ISO8601 on Wikipedia](http://en.wikipedia.org/wiki/Iso8601#Durations)).
+
+Old data cleaning occurs when you run a command `./console aggregate` on crontab.
+
 
 ## Security
 
