@@ -1,3 +1,5 @@
+pinboard Wiki - https://github.com/intaro/pinboard/wiki
+
 # Docker Jinba-Pinba-Board (JPB) stack
 
 This stack contains: Pinba image, Jinba image and Pinboard image.
