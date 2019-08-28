@@ -20,5 +20,5 @@ pagination:
 secure:
     enable: true
     users:
-        optellect:
+        user1:
             password: VR+mgiSMxYKYyUnmhpr8Fjk+pSrXLuNAn+mmLWxvwNszsDNpvlbrhHkVU9pn43F3DggBrvEMPzG3UmC+NoehKw==
